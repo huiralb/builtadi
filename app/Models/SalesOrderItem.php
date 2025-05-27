@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class SalesOrderItem extends Model
 {
     protected $table = 'sales_order_items';
+    public $timestamps = false;
     protected $fillable = [
         'quantity', 'production_price', 'selling_price', 'product_id', 'order_id'
     ];

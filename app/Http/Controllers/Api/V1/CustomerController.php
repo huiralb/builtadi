@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
-
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     public function store(CustomerRequest $request): JsonResponse
