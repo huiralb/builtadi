@@ -12,8 +12,8 @@ class PhoneValidationService
 
     public function __construct()
     {
-        $this->apiKey = '6ec9be2faaa841338de98826829e09ba';
-        $this->baseUrl = 'https://phonevalidation.abstractapi.com/v1/';
+        $this->apiKey = config('services.abstract_api.phone_validation.api_key', '6ec9be2faaa841338de98826829e09ba');
+        $this->baseUrl = config('services.abstract_api.phone_validation.base_url', 'https://phonevalidation.abstractapi.com/v1/');
     }
 
     public function validatePhone(string $phone, string $countryCode = 'ID'): array

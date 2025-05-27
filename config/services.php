@@ -34,5 +34,11 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'abstract_api' => [
+        'phone_validation' => [
+            'api_key' => env('ABSTRACT_API_PHONE_VALIDATION_KEY', '6ec9be2faaa841338de98826829e09ba'),
+            'base_url' => env('ABSTRACT_API_PHONE_VALIDATION_BASE_URL', 'https://phonevalidation.abstractapi.com/v1/'),
+        ],
+    ],
 
 ];
