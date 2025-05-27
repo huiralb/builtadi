@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "544665fe-e76c-48b0-bce6-d89dbe19ab9d",
+		"name": "builtadi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41326039"
+	},
+	"item": [
+		{
+			"name": "sales summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/sales/summary",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sales",
+						"summary"
+					],
+					"query": [
+						{
+							"key": "sales",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "customer",
+							"value": "189",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sales targets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/sales/target",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sales",
+						"target"
+					],
+					"query": [
+						{
+							"key": "sales",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sales performance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/sales/performance",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sales",
+						"performance"
+					],
+					"query": [
+						{
+							"key": "month",
+							"value": "March 2024",
+							"disabled": true
+						},
+						{
+							"key": "isUnderperform",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Customer Name\",\n    \"address\": \"Customer Address\",\n    \"phone\": \"08825061924\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/customers",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update customer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Customer Name\",\n    \"address\": \"Customer Address\",\n    \"phone\": \"085825061924\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/customers/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"customers",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add sales order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reference_no\": \"SO-2025-77\",\n    \"sales_id\": 1,\n    \"customer_id\": 1,\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 2,\n            \"selling_price\": 150000\n        },\n        {\n            \"product_id\": 2,\n            \"quantity\": 1,\n            \"selling_price\": 200000\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/sales-orders",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sales-orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
