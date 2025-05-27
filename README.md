@@ -44,8 +44,8 @@ Follow these steps to set up the project and import the database:
    - Visit: http://localhost:8000
 
 ### Usage
-1. Open Postman (Desktop is recomended)
-2. Import `builtadi.postman_collection.json`
+1. Open **Postman** (Desktop is recomended)
+2. Import Postman collection **`builtadi.postman_collection.json`**
 
 ### Unit Testing
 
