@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: builtadi-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - builtadi
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: builtadi-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - builtadi
+
+  db:
+    image: mysql:8.0
+    container_name: builtadi-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker-compose/mysql:/var/lib/mysql
+    networks:
+      - builtadi
+
+  redis:
+    image: redis:alpine
+    container_name: builtadi-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - builtadi
+
+networks:
+  builtadi:
+    driver: bridge
