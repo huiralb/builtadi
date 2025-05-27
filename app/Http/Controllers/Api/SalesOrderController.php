@@ -37,7 +37,7 @@ class SalesOrderController extends Controller
                 ]);
             }
 
-            // DB::commit();
+            DB::commit();
 
             return response()->json([
                 'message' => 'Sales order created successfully',

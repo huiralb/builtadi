@@ -16,7 +16,7 @@ class SalesOrderController extends Controller
     public function store(StoreSalesOrderRequest $request): JsonResponse
     {
         try {
-            DB::beginTransaction();
+            // DB::beginTransaction();
 
             // Create sales order
             $salesOrder = SalesOrder::create([
@@ -45,7 +45,7 @@ class SalesOrderController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
-            DB::rollBack();
+            // DB::rollBack();
 
             return response()->json([
                 'message' => 'Failed to create sales order',

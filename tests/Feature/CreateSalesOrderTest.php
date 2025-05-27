@@ -1,23 +1,15 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SalesOrder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
-class SalesOrderTest extends TestCase
-{
-    use RefreshDatabase;e App\Models\Customer;
-use App\Models\Product;
-use App\Models\Sale;
-use App\Models\SalesOrder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
-// uses(RefreshDatabase::class);
+uses(TestCase::class);
+uses(RefreshDatabase::class);
 
 beforeEach(function () {
     $this->sale = Sale::factory()->create();
@@ -82,25 +74,28 @@ test('can create a sales order with items', function () {
             ],
         ]);
 
-    $this->assertDatabaseHas('sales_orders', [
-        'reference_no' => $no,
-        'sales_id' => $this->sale->id,
-        'customer_id' => $this->customer->id,
-    ]);
+    expect(SalesOrder::count())->toBe(1);
 
-    $this->assertDatabaseHas('sales_order_items', [
-        'product_id' => $this->product1->id,
-        'quantity' => 2,
-        'selling_price' => 150000,
-        'production_price' => 100000,
-    ]);
+    $order = SalesOrder::first();
+    Log::info('Created Sales Order: {order}', ['order' => $order]);
 
-    $this->assertDatabaseHas('sales_order_items', [
-        'product_id' => $this->product2->id,
-        'quantity' => 1,
-        'selling_price' => 200000,
-        'production_price' => 150000,
-    ]);
+
+    expect($order->reference_no)->toBe($no)
+        ->and($order->sales_id)->toBe($this->sale->id)
+        ->and($order->customer_id)->toBe($this->customer->id);
+
+    $items = $order->items;
+    expect($items)->toHaveCount(2);
+
+    expect($items[0]->product_id)->toBe($this->product1->id)
+        ->and($items[0]->quantity)->toBe(2)
+        ->and($items[0]->selling_price)->toBe("150000.00")
+        ->and($items[0]->production_price)->toBe("100000.00");
+
+    expect($items[1]->product_id)->toBe($this->product2->id)
+        ->and($items[1]->quantity)->toBe(1)
+        ->and($items[1]->selling_price)->toBe("200000.00")
+        ->and($items[1]->production_price)->toBe("150000.00");
 });
 
 test('cannot create sales order with duplicate reference number', function () {
@@ -111,7 +106,6 @@ test('cannot create sales order with duplicate reference number', function () {
         'customer_id' => $this->customer->id,
     ]);
 
-    // Try to create another order with same reference
     $payload = [
         'reference_no' => 'SO-2025-001',
         'sales_id' => $this->sale->id,
@@ -129,6 +123,8 @@ test('cannot create sales order with duplicate reference number', function () {
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['reference_no']);
+
+    expect(SalesOrder::count())->toBe(1);
 });
 
 test('cannot create sales order with invalid sales id', function () {
@@ -149,6 +145,8 @@ test('cannot create sales order with invalid sales id', function () {
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['sales_id']);
+
+    expect(SalesOrder::count())->toBe(0);
 });
 
 test('cannot create sales order with invalid customer id', function () {
@@ -169,6 +167,8 @@ test('cannot create sales order with invalid customer id', function () {
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['customer_id']);
+
+    expect(SalesOrder::count())->toBe(0);
 });
 
 test('cannot create sales order with invalid product id', function () {
@@ -189,6 +189,8 @@ test('cannot create sales order with invalid product id', function () {
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['items.0.product_id']);
+
+    expect(SalesOrder::count())->toBe(0);
 });
 
 test('cannot create sales order without items', function () {
@@ -203,4 +205,6 @@ test('cannot create sales order without items', function () {
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['items']);
+
+    expect(SalesOrder::count())->toBe(0);
 });
