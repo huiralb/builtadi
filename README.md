@@ -1,4 +1,8 @@
 # Sales Business BA
+### Requirements
+- php >= 8.2
+- MySql
+
 ### Installation & Database Import
 
 Follow these steps to set up the project and import the database:
@@ -39,7 +43,11 @@ Follow these steps to set up the project and import the database:
 7. **Access your API**
    - Visit: http://localhost:8000
 
-### Testing Setup and Execution
+### Usage
+1. Open Postman (Desktop is recomended)
+2. Import `builtadi.postman_collection.json`
+
+### Unit Testing
 
 Follow these steps to configure and run the unit tests:
 
