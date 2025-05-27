@@ -33,3 +33,16 @@ Follow these steps to set up the project and import the database:
 6. **Access your API**
    - Visit: http://localhost:8000
 
+### Testing Setup and Execution
+
+Follow these steps to configure and run the unit tests:
+
+1. **Configure testing environment**
+   - Create a test database named `builtadi_testing` in your MySQL server
+   - The test configuration is already set in `phpunit.xml`
+   - Tests will use this dedicated database to avoid affecting your development data
+
+2. **Run the tests**
+   ```sh
+   php artisan test
+   ```
