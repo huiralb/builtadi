@@ -16,8 +16,9 @@ Follow these steps to set up the project and import the database:
    ```sh
    php artisan key:generate
    ```
-4. **Import the database structure and data**
-   - You can use the custom Artisan command:
+4. **Import the database**
+    
+   - You can migrate and use the custom Artisan command:
      ```sh
      php artisan db:import
      ```
@@ -26,11 +27,16 @@ Follow these steps to set up the project and import the database:
      php artisan db:import --file=database/builtadi/Database.sql
      ```
    - This will import `database/builtadi/Database.sql` into your configured database.
-5. **Serve the application**
+5. **Migration**
+    - Run migration prevents session issue
+    ```sh
+    php artisan migrate
+    ```
+6. **Serve the application**
    ```sh
    php artisan serve
    ```
-6. **Access your API**
+7. **Access your API**
    - Visit: http://localhost:8000
 
 ### Testing Setup and Execution
