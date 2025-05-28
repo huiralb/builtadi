@@ -121,35 +121,35 @@ Follow these steps to configure and run the unit tests:
 ### Container Management
 ```bash
 # Start all containers
-docker-compose up -d
+docker compose up -d
 
 # Stop all containers
-docker-compose down
+docker compose down
 
 # View container logs
-docker-compose logs
+docker compose logs
 
 # Rebuild containers
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ### Application Commands
 ```bash
 # Run artisan commands
-docker-compose exec app php artisan <command>
+docker compose exec app php artisan <command>
 
 # Access MySQL
-docker-compose exec db mysql -ubuiltadi -psecret builtadi
+docker compose exec db mysql -ubuiltadi -psecret builtadi
 
 # Access Redis CLI
-docker-compose exec redis redis-cli
+docker compose exec redis redis-cli
 ```
 
 ### Container Information
 ```bash
 # List running containers
-docker-compose ps
+docker compose ps
 
 # View container logs in real-time
-docker-compose logs -f
+docker compose logs -f
 ```

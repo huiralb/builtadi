@@ -1,5 +1,9 @@
 FROM php:8.2-fpm
 
+# Arguments defined in docker-compose.yml
+ARG UID
+ARG GID
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -8,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    libzip-dev
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -25,10 +30,12 @@ WORKDIR /var/www
 COPY . /var/www
 
 # Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u 1000 -d /home/dev dev
-RUN mkdir -p /home/dev/.composer && \
-    chown -R dev:dev /home/dev
+RUN groupadd -g ${GID} dev && \
+    useradd -u ${UID} -g dev -m -s /bin/bash dev
 
 # Set permissions
-RUN chown -R dev:dev /var/www
+RUN mkdir -p /home/dev/.composer && \
+    chown -R dev:dev /home/dev && \
+    chown -R dev:dev /var/www
+
 USER dev

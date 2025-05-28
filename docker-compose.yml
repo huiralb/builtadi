@@ -1,10 +1,12 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    image: builtadi-app:latest
     container_name: builtadi-app
     restart: unless-stopped
     working_dir: /var/www/
@@ -30,25 +32,16 @@ services:
     container_name: builtadi-db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_DATABASE: ${DB_DATABASE:-builtadi}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_USER: ${DB_USERNAME:-builtadi}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./docker-compose/mysql:/var/lib/mysql
-    networks:
-      - builtadi
-
-  redis:
-    image: redis:alpine
-    container_name: builtadi-redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
     networks:
       - builtadi
 
